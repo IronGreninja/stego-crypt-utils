@@ -9,9 +9,8 @@ from .base import SteganographyAlgorithm
 
 class LSBAlgorithm(SteganographyAlgorithm):
     @staticmethod
-    def encode(message: str, img_path: Path) -> Img:
-        im = Img.load(img_path)
-        mat = im.imgmatrix()
+    def encode(message: str, img: Img) -> Img:
+        mat = img.imgmatrix()
         data = message.encode()
 
         # 32-bit message length prefix, in bytes.
@@ -35,9 +34,8 @@ class LSBAlgorithm(SteganographyAlgorithm):
         return Img.from_matrix(mat)
 
     @staticmethod
-    def decode(img_path: Path) -> str:
-        im = Img.load(img_path)
-        mat = im.imgmatrix()
+    def decode(img: Img) -> str:
+        mat = img.imgmatrix()
 
         flat = mat.reshape(-1)
 

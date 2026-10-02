@@ -10,6 +10,8 @@ RGBImageMatrix = npt.NDArray[np.uint8]
 
 @dataclass
 class Img:
+    """Custom Image repr class (Wrapper for PIL.Image.Image)"""
+
     img: Image.Image
 
     @staticmethod
@@ -21,6 +23,10 @@ class Img:
     @staticmethod
     def from_matrix(img_matrix: RGBImageMatrix) -> Img:
         return Img(img=Image.fromarray(img_matrix, mode="RGB"))
+
+    @staticmethod
+    def generate(color: str, size: tuple[int, int]) -> Img:
+        return Img(img=Image.new("RGB", size, color))
 
     def save(self, path: Path) -> None:
         self.img.save(path)
