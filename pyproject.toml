@@ -1,7 +1,7 @@
 [project]
-name = "year4proj"
+name = "stego-crypt-utils"
 version = "0.1.0"
-description = "Final Year Project"
+description = "Steganography/Cryptography Utilities"
 readme = "README.md"
 authors = [
     { name = "IronGreninja", email = "92992745+IronGreninja@users.noreply.github.com" }
