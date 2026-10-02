@@ -5,6 +5,7 @@ from typing import Annotated
 import typer as T
 
 from stego_cli.algorithms import ALGORITHMS
+from stego_cli.io.image import Img
 
 app = T.Typer(no_args_is_help=True)
 
@@ -44,7 +45,7 @@ def encode(
         with open(Path(message_src)) as f:
             message = f.read().strip()
 
-    ALGORITHMS[algo].encode(message=message, img_path=input_img).save(output_img)
+    ALGORITHMS[algo].encode(message=message, img=Img.load(input_img)).save(output_img)
 
     print("Encoding Successful")
 
@@ -56,7 +57,7 @@ def decode(
 ):
     """Decode text from an image."""
 
-    message = ALGORITHMS[algo].decode(input_img)
+    message = ALGORITHMS[algo].decode(Img.load(input_img))
     print("Decoding Successful. Extracted message follows:\n")
     print(f"{message}")
 

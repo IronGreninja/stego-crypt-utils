@@ -7,11 +7,11 @@ from stego_cli.io.image import Img
 class SteganographyAlgorithm(ABC):
     @staticmethod
     @abstractmethod
-    def encode(message: str, img_path: Path) -> Img: ...
+    def encode(message: str, img: Img) -> Img: ...
 
     @staticmethod
     @abstractmethod
-    def decode(img_path: Path) -> str: ...
+    def decode(img: Img) -> str: ...
 
     @staticmethod
     @abstractmethod
