@@ -11,3 +11,5 @@ wheels/
 
 # Nix stuff
 shell.nix
+
+out.png

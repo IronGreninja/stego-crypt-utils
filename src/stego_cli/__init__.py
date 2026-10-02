@@ -1,2 +1,4 @@
 def main() -> None:
-    pass
+    from .cli.app import app
+
+    app()
