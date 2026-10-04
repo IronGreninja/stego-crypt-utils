@@ -68,3 +68,14 @@ def algo():
 
     for name, algo in ALGORITHMS.items():
         print(f"{name}: {algo.desc()}")
+
+
+@app.command()
+def capacity(
+    input_img: Annotated[Path, T.Option("-i", "--input-img")],
+    algo: Annotated[str, T.Option("-a", "--algo")] = "lsb",
+):
+    """Show how many bytes of data can be encoded."""
+
+    res = ALGORITHMS[algo].capacity(Img.load(input_img))
+    print(res)
