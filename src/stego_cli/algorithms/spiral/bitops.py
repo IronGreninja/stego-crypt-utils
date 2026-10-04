@@ -1,5 +1,6 @@
 DELIMITER_BYTES = bytes([0xFF, 0xFE, 0xFF, 0xFE])
 DELIMITER = ''.join(f'{b:08b}' for b in DELIMITER_BYTES)  # 32 bits
+
 def text_to_bits(text):
     payload = ''.join(f'{byte:08b}' for byte in text.encode('utf-8'))
     return payload + DELIMITER
