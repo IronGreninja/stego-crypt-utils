@@ -1,5 +1,4 @@
 from abc import ABC, abstractmethod
-from pathlib import Path
 
 from stego_cli.io.image import Img
 
@@ -16,3 +15,9 @@ class SteganographyAlgorithm(ABC):
     @staticmethod
     @abstractmethod
     def desc() -> str: ...
+
+    @staticmethod
+    @abstractmethod
+    def capacity(img: Img) -> int:
+        """Approximate Maximum size of message in bytes that can be encoded"""
+        raise NotImplementedError

@@ -12,4 +12,6 @@ wheels/
 # Nix stuff
 shell.nix
 
-out.png
+*.png
+*.jpg
+*.jpeg

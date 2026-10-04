@@ -59,3 +59,8 @@ class LSBAlgorithm(SteganographyAlgorithm):
             "Least Significant Bit (LSB) Algorithm. "
             "Stores 1 bit data in each lsb position of each color channel (RGB)"
         )
+
+    @staticmethod
+    def capacity(img: Img) -> int:
+        w, h, _ = img.imgmatrix().shape
+        return ((w * h - 4) * 3) // 8
