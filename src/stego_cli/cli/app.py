@@ -182,3 +182,73 @@ def image_capacity(
     )
 
     print(res)
+
+
+def hmac_key() -> bytes:
+    test_key = b'q!\x9d\x89\xa0[]\xf8\x96\xe4,\xc9\x96\x9e\xfea\xb1\x99\xd1\xa9A\n8\xa2\xc2\x06\x98\xe1|"\xda5'
+    return test_key
+
+
+@app.command("ccvcs-encode")
+def ccvcs_encode(
+    message_src: Annotated[
+        str,
+        T.Option(
+            "-m",
+            "--message",
+            help="Path of the file which contains the message. Use '-' to read from stdin",
+        ),
+    ],
+    cover1: Annotated[
+        Path,
+        T.Option("--cover1"),
+    ],
+    cover2: Annotated[
+        Path,
+        T.Option("--cover2"),
+    ],
+):
+    """CCVCS Encode"""
+
+    cover1_img = Img.load(cover1)
+    cover2_img = Img.load(cover2)
+
+    message: str
+    if message_src == "-":
+        message = sys.stdin.read().strip()
+    else:
+        with open(Path(message_src)) as f:
+            message = f.read().strip()
+
+    from stego_cli.ccvcs.linear_embedder import LinearEmbedder
+
+    embedder = LinearEmbedder(hmac_key())
+
+    stego1, stego2 = embedder.embed(message, cover1_img, cover2_img)
+
+    stego1.save(cover1.parent / "stego1.png")
+    stego2.save(cover2.parent / "stego2.png")
+
+    print("Embedding successful")
+
+
+@app.command("ccvcs-extract")
+def ccvcs_extract(
+    stego1: Annotated[
+        Path,
+        T.Option("--stego1"),
+    ],
+    stego2: Annotated[
+        Path,
+        T.Option("--stego2"),
+    ],
+):
+    """CCVCS Decode"""
+
+    from stego_cli.ccvcs.linear_embedder import LinearEmbedder
+
+    embedder = LinearEmbedder(hmac_key())
+
+    message = embedder.extract(Img.load(stego1), Img.load(stego2))
+
+    print(f"Extracted embedded message:\n{message}")

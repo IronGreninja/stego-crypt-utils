@@ -35,3 +35,7 @@ class Img:
         self,
     ) -> RGBImageMatrix:
         return np.array(self.img)
+
+    def pixelcount(self) -> int:
+        w, h = self.img.size
+        return w * h
