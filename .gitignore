@@ -12,3 +12,4 @@ wheels/
 *.png
 *.jpg
 *.jpeg
+*.stegopayload
